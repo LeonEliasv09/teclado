@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>¡Teclado en Misión! 🚀🎮</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-sky: #e0f2fe;
+  --accent-yellow: #fde047;
+  --accent-orange: #fb923c;
+  --accent-pink: #f472b6;
+  --accent-blue: #38bdf8;
+  --accent-purple: #c084fc;
+  --accent-green: #4ade80;
+  --text-dark: #1e293b;
+  --panel-bg: rgba(255, 255, 255, 0.92);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: 'Fredoka', cursive, system-ui, sans-serif;
+  color: var(--text-dark);
+  background: radial-gradient(circle at 50% 20%, #bae6fd, #7dd3fc 40%, #38bdf8 100%);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+.cloud {
+  position: absolute;
+  background: white;
+  border-radius: 50px;
+  opacity: 0.6;
+  z-index: 0;
+  animation: float 8s ease-in-out infinite;
+}
+.cloud1 { width: 140px; height: 50px; top: 40px; left: 5%; animation-delay: 0s; }
+.cloud2 { width: 180px; height: 60px; top: 80px; right: 8%; animation-delay: -4s; }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+}
+
+header {
+  text-align: center;
+  padding: 24px 16px 10px;
+  position: relative;
+  z-index: 2;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(32px, 6vw, 50px);
+  font-weight: 700;
+  color: #0284c7;
+  text-shadow: 3px 3px 0px #ffffff, 6px 6px 0px rgba(0,0,0,0.1);
+  letter-spacing: 1px;
+}
+
+header p {
+  margin: 10px 0 0;
+  color: #0369a1;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+main {
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 16px;
+  position: relative;
+  z-index: 2;
+}
+
+.top {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.control-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: white;
+  padding: 8px 18px;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  border: 3px solid #7dd3fc;
+}
+
+label { font-weight: 700; font-size: 18px; color: #0369a1; }
+
+select, button {
+  font: inherit;
+  border: 0;
+  border-radius: 16px;
+  padding: 10px 18px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+select {
+  background: #f0f9ff;
+  color: #0c4a6e;
+  border: 2px solid #38bdf8;
+  outline: none;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button {
+  background: linear-gradient(135deg, #ff7676, #ff4757);
+  color: white;
+  font-weight: 700;
+  font-size: 18px;
+  cursor: pointer;
+  box-shadow: 0 6px 0 #c0392b, 0 10px 20px rgba(0,0,0,0.15);
+  border: 2px solid #ffffff;
+}
+
+button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 9px 0 #c0392b, 0 12px 22px rgba(0,0,0,0.2);
+}
+
+button:active { 
+  transform: translateY(3px); 
+  box-shadow: 0 2px 0 #c0392b; 
+}
+
+button.secondary {
+  background: linear-gradient(135deg, #2ed573, #26af5f);
+  box-shadow: 0 6px 0 #1e8449, 0 10px 20px rgba(0,0,0,0.15);
+}
+
+button.secondary:hover {
+  box-shadow: 0 9px 0 #1e8449, 0 12px 22px rgba(0,0,0,0.2);
+}
+
+button.secondary:active {
+  box-shadow: 0 2px 0 #1e8449;
+}
+
+.stats {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.stat {
+  background: white;
+  border-radius: 20px;
+  padding: 12px 24px;
+  font-weight: 700;
+  font-size: 19px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  border: 3px solid #e0f2fe;
+}
+
+.stat span { color: #0284c7; font-size: 22px; }
+.stat.errors span { color: #e11d48; }
+
+.panel {
+  background: var(--panel-bg);
+  border: 4px solid white;
+  border-radius: 32px;
+  padding: 24px;
+  box-shadow: 0 16px 40px rgba(0, 149, 255, 0.2);
+  margin-bottom: 24px;
+  backdrop-filter: blur(10px);
+}
+
+.instruction {
+  text-align: center;
+  font-size: 22px;
+  font-weight: 700;
+  color: #0369a1;
+  margin-bottom: 18px;
+}
+
+.keyboard-wrap {
+  overflow-x: auto;
+  padding: 12px 0;
+}
+
+.keyboard {
+  min-width: 780px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.keyrow {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  width: 100%;
+}
+
+.key {
+  height: 54px;
+  min-width: 48px;
+  padding: 4px;
+  border-radius: 14px;
+  background: #ffffff;
+  border: 3px solid #bae6fd;
+  color: #0284c7;
+  font-weight: 700;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+  box-shadow: 0 6px 0 #7dd3fc, 0 6px 10px rgba(0,0,0,0.05);
+  transition: all 0.15s ease;
+}
+
+.key.wide { min-width: 82px; }
+.key.xwide { min-width: 120px; }
+.key.space { min-width: 300px; }
+
+.key.slot {
+  background: #f0f9ff;
+  border: 3px dashed #7dd3fc;
+  box-shadow: inset 0 4px 8px rgba(0,0,0,0.05);
+  color: #94a3b8;
+  font-size: 18px;
+}
+
+.key.slot.over {
+  background: #fef08a;
+  border-color: #f59e0b;
+  transform: scale(1.1);
+}
+
+.key.correct {
+  background: linear-gradient(135deg, #4ade80, #22c55e);
+  border-color: #ffffff;
+  color: white;
+  box-shadow: 0 6px 0 #15803d, 0 8px 15px rgba(34, 197, 94, 0.3);
+  animation: pop 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.key.wrong {
+  animation: shake 0.3s ease;
+  background: linear-gradient(135deg, #f87171, #ef4444);
+  border-color: #ffffff;
+  color: white;
+  box-shadow: 0 6px 0 #b91c1c;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-8px); }
+  40%, 80% { transform: translateX(8px); }
+}
+
+@keyframes pop {
+  0% { transform: scale(0.8); }
+  50% { transform: scale(1.25); }
+  100% { transform: scale(1); }
+}
+
+.tray-title {
+  text-align: center;
+  font-weight: 700;
+  font-size: 20px;
+  margin-bottom: 14px;
+  color: #0284c7;
+}
+
+.tray {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  min-height: 90px;
+  padding: 20px;
+  background: #f0f9ff;
+  border: 3px dashed #38bdf8;
+  border-radius: 24px;
+}
+
+.piece {
+  height: 52px;
+  min-width: 48px;
+  padding: 4px 14px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #fde047, #facc15);
+  border: 3px solid #ffffff;
+  box-shadow: 0 6px 0 #d97706, 0 8px 15px rgba(0,0,0,0.1);
+  font-weight: 700;
+  font-size: 22px;
+  color: #78350f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+  user-select: none;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.piece:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 10px 0 #d97706, 0 12px 20px rgba(0,0,0,0.15);
+}
+
+.piece.selected {
+  background: linear-gradient(135deg, #f472b6, #ec4899);
+  color: white;
+  box-shadow: 0 6px 0 #be185d;
+  transform: translateY(-4px) scale(1.1);
+}
+
+.piece.used { display: none; }
+
+.feedback {
+  text-align: center;
+  min-height: 32px;
+  font-weight: 700;
+  margin-top: 16px;
+  font-size: 20px;
+}
+
+.good { color: #16a34a; text-shadow: 0 2px 0 white; }
+.bad { color: #dc2626; text-shadow: 0 2px 0 white; }
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(14, 165, 233, 0.6);
+  backdrop-filter: blur(6px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  z-index: 50;
+}
+
+.dialog {
+  background: white;
+  border: 6px solid #fde047;
+  border-radius: 36px;
+  padding: 36px;
+  max-width: 480px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+  animation: modalPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes modalPop {
+  from { opacity: 0; transform: scale(0.7); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.dialog h2 {
+  font-size: 38px;
+  margin: 0 0 14px;
+  color: #0284c7;
+}
+
+.dialog p { font-size: 20px; color: #334155; line-height: 1.5; font-weight: 600; }
+
+.hint {
+  text-align: center;
+  color: #0284c7;
+  font-size: 15px;
+  font-weight: 600;
+  margin-top: 12px;
+}
+
+@media(max-width: 600px) {
+  .key { height: 44px; min-width: 38px; font-size: 16px; }
+  .keyboard { min-width: 650px; }
+  .panel { padding: 16px; }
+}
+</style>
+</head>
+<body>
+
+<div class="cloud cloud1"></div>
+<div class="cloud cloud2"></div>
+
+<header>
+  <h1>⌨️ ¡TECLADO EN MISIÓN! 🚀</h1>
+  <p>¡Las teclas se escaparon a jugar! Arrástralas a su casilla correcta.</p>
+</header>
+
+<main>
+  <div class="top">
+    <div class="control-group">
+      <label for="mode">🎯 Reto:</label>
+      <select id="mode">
+        <option value="letters">1. Letras (A–Z)</option>
+        <option value="rows">2. Letras y Números</option>
+        <option value="full">3. Teclado Completo</option>
+      </select>
+    </div>
+    <button id="start">🎮 ¡Jugar Ahora!</button>
+    <button class="secondary" id="sound">🔊 Sonido: Sí</button>
+  </div>
+
+  <div class="stats">
+    <div class="stat">⭐ Puntos: <span id="score">0</span></div>
+    <div class="stat errors">❌ Errores: <span id="errors">0</span></div>
+    <div class="stat">⌛ Tiempo: <span id="time">0:00</span></div>
+    <div class="stat">🔑 Teclas: <span id="done">0/26</span></div>
+  </div>
+
+  <section class="panel">
+    <div class="instruction" id="instruction">Selecciona un reto y presiona “¡Jugar Ahora!”.</div>
+    <div class="keyboard-wrap">
+      <div class="keyboard" id="keyboard"></div>
+    </div>
+    <div class="feedback" id="feedback" aria-live="polite"></div>
+  </section>
+
+  <section class="panel">
+    <div class="tray-title">🧩 BANDEJA DE TECLAS — Arrastra o haz clic en una tecla</div>
+    <div class="tray" id="tray"></div>
+    <div class="hint">💡 Tip: Puedes arrastrar la tecla con el ratón o hacerle clic y luego presionar su lugar en el teclado.</div>
+  </section>
+</main>
+
+<div class="overlay" id="overlay">
+  <div class="dialog">
+    <h2 id="endTitle">¡Supercampeón! 🎉</h2>
+    <p id="endText"></p>
+    <button id="again">¡Jugar de Nuevo! 🔄</button>
+  </div>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+
+const rows=[
+  [{k:'`',w:1},{k:'1'},{k:'2'},{k:'3'},{k:'4'},{k:'5'},{k:'6'},{k:'7'},{k:'8'},{k:'9'},{k:'0'},{k:'-'},{k:'='},{k:'Borrar',w:2}],
+  [{k:'Tab',w:1.5},...'QWERTYUIOP'.split('').map(k=>({k})),{k:'['},{k:']'},{k:'\\',w:1.5}],
+  [{k:'Bloq Mayús',w:2},...'ASDFGHJKL'.split('').map(k=>({k})),{k:';'},{k:"'"},{k:'Enter',w:2}],
+  [{k:'Shift',w:2},...'ZXCVBNM'.split('').map(k=>({k})),{k:','},{k:'.'},{k:'/'},{k:'Shift',w:2}],
+  [{k:'Ctrl',w:1.3},{k:'Fn'},{k:'Alt',w:1.3},{k:'Espacio',w:5},{k:'Alt Gr',w:1.5},{k:'☰'},{k:'Ctrl',w:1.3}]
+];
+
+let mode='letters', items=[], selected=null, score=0, errors=0, done=0, total=0, seconds=0, timer=null, sound=true, started=false;
+
+function beep(freq=600, dur=.08){
+  if(!sound) return;
+  try{
+    let c=new(window.AudioContext||window.webkitAudioContext)(), o=c.createOscillator(), g=c.createGain();
+    o.connect(g); g.connect(c.destination);
+    o.frequency.value=freq; g.gain.value=.05;
+    o.start(); o.stop(c.currentTime+dur);
+  }catch(e){}
+}
+
+function dataForMode(){
+  if(mode==='letters') return ['QWERTYUIOP','ASDFGHJKL','ZXCVBNM'].map(s=>s.split('').map(k=>({k})));
+  if(mode==='rows') return rows.slice(0,1).concat(rows.slice(1,4)).map(r=>r.filter(x=>x.k.length===1));
+  return rows;
+}
+
+function start(){
+  clearInterval(timer);
+  mode=$('mode').value;
+  score=0;
+  errors=0;
+  done=0;
+  seconds=0;
+  selected=null;
+  started=true;
+  
+  const layout=dataForMode();
+  items=layout.flat();
+  total=items.length;
+  
+  $('score').textContent=score;
+  $('errors').textContent=errors;
+  $('done').textContent=`0/${total}`;
+  $('time').textContent='0:00';
+  $('feedback').textContent='';
+  $('instruction').textContent=mode==='letters'?'🌟 Reto 1: ¡Coloca cada letra en su lugar correcto!' :'🌟 ¡Reconstruye el teclado! Observa bien cada lugar.';
+  
+  renderKeyboard(layout);
+  renderTray();
+  
+  timer=setInterval(()=>{
+    seconds++;
+    $('time').textContent=`${Math.floor(seconds/60)}:${String(seconds%60).padStart(2,'0')}`;
+  }, 1000);
+}
+
+function renderKeyboard(layout){
+  $('keyboard').innerHTML='';
+  layout.forEach(row=>{
+    let rr=document.createElement('div');
+    rr.className='keyrow';
+    row.forEach(obj=>{
+      let slot=document.createElement('div');
+      slot.className='key slot';
+      slot.dataset.key=obj.k;
+      slot.textContent='?';
+      
+      if(obj.w>=1.5) slot.classList.add('wide');
+      if(obj.w>=2.5) slot.classList.add('xwide');
+      if(obj.w>=4) slot.classList.add('space');
+      
+      slot.addEventListener('dragover', e=>{ e.preventDefault(); slot.classList.add('over'); });
+      slot.addEventListener('dragleave', ()=>slot.classList.remove('over'));
+      slot.addEventListener('drop', e=>{
+        e.preventDefault();
+        slot.classList.remove('over');
+        place(e.dataTransfer.getData('text/plain'), slot);
+      });
+      slot.addEventListener('click', ()=>{ if(selected) place(selected, slot); });
+      
+      rr.appendChild(slot);
+    });
+    $('keyboard').appendChild(rr);
+  });
+}
+
+function renderTray(){
+  let tray=$('tray');
+  tray.innerHTML='';
+  let shuffled=[...items].sort(()=>Math.random()-.5);
+  
+  shuffled.forEach((obj, i)=>{
+    let p=document.createElement('div');
+    p.className='piece';
+    p.textContent=obj.k;
+    p.draggable=true;
+    p.dataset.key=obj.k;
+    p.id='piece'+i;
+    
+    p.addEventListener('dragstart', e=>{
+      e.dataTransfer.setData('text/plain', obj.k);
+      selected=obj.k;
+    });
+    
+    p.addEventListener('click', ()=>{
+      document.querySelectorAll('.piece').forEach(x=>x.classList.remove('selected'));
+      p.classList.add('selected');
+      selected=obj.k;
+      beep(500,.04);
+    });
+    
+    tray.appendChild(p);
+  });
+}
+
+function place(key, slot){
+  if(!started || !key || slot.classList.contains('correct')) return;
+  
+  if(slot.dataset.key===key){
+    slot.textContent=key;
+    slot.classList.remove('slot');
+    slot.classList.add('correct');
+    score += 10;
+    done++;
+    
+    $('score').textContent=score;
+    $('done').textContent=`${done}/${total}`;
+    $('feedback').textContent='🌟 ¡Genial! ¡Es su posición!';
+    $('feedback').className='feedback good';
+    beep(850,.09);
+    
+    let piece=[...document.querySelectorAll('.piece')].find(p=>p.dataset.key===key && !p.classList.contains('used'));
+    if(piece) piece.classList.add('used');
+    
+    selected=null;
+    if(done===total) finish();
+  } else {
+    errors++;
+    $('errors').textContent=errors;
+    $('feedback').textContent='😅 ¡Casi! Revisa bien e inténtalo de nuevo.';
+    $('feedback').className='feedback bad';
+    
+    slot.classList.add('wrong');
+    setTimeout(()=>slot.classList.remove('wrong'), 300);
+    beep(180,.12);
+  }
+}
+
+function finish(){
+  started=false;
+  clearInterval(timer);
+  $('endTitle').textContent='🏆 ¡Supercampeón!';
+  $('endText').textContent=`¡Fabuloso! Lograste armar el teclado en ${Math.floor(seconds/60)}m ${seconds%60}s con ${score} puntos y solo ${errors} equivocación(es). ¡Eres muy inteligente! 🎈✨`;
+  $('overlay').style.display='flex';
+  beep(950,.2);
+}
+
+$('start').onclick=start;
+$('again').onclick=()=>{ $('overlay').style.display='none'; start(); };
+$('sound').onclick=()=>{
+  sound=!sound;
+  $('sound').textContent=sound?'🔊 Sonido: Sí':'🔇 Sonido: No';
+  if(sound) beep();
+};
+
+start();
+</script>
+</body>
+</html>
